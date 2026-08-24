@@ -18,6 +18,7 @@ notify the user when voice cloning was silently dropped during fallback.
 
 import asyncio
 import logging
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
@@ -36,6 +37,17 @@ class SynthResult:
     engine: str  # "chatterbox" or "gtts"
     fallback: bool  # True if the caller's preferred path was not taken
     voice_cloned: bool  # True if a speaker WAV was actually applied
+
+
+def clean_text_for_speech(text: str) -> str:
+    # Remove markdown formatting characters
+    text = re.sub(r"[*_#`\[\]()]", "", text)
+    # Remove emojis (supplementary planes)
+    text = re.sub(r"[\U00010000-\U0010ffff]", "", text)
+    # Remove miscellaneous symbols and dingbats
+    text = re.sub(r"[\u2600-\u27BF]", "", text)
+    # Normalize spacing
+    return re.sub(r"\s+", " ", text).strip()
 
 
 # Microsoft neural voices for the Edge TTS fallback, one per supported
@@ -135,6 +147,7 @@ class TTSService:
             `fallback=True` indicates the preferred Chatterbox path failed
             and gTTS was used instead — voice cloning is lost in that case.
         """
+        text = clean_text_for_speech(text)
         Path(output_path).parent.mkdir(parents=True, exist_ok=True)
 
         try:
@@ -238,6 +251,7 @@ class TTSService:
         language: str = "en",
     ) -> bytes:
         """Synthesize and return WAV bytes (used by REST callers)."""
+        text = clean_text_for_speech(text)
         import tempfile
 
         with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp_file:

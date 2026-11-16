@@ -442,3 +442,14 @@ Released under the **MIT License** — see [LICENSE](./LICENSE).
 </p>
 
 <p align="center"><sub>If Vivora is useful to you, a ⭐ on the repo is always appreciated.</sub></p>
+
+---
+
+## Instalar Vivora para usarlo en cualquier proyecto
+
+```bash
+./install-vivora.sh --all      # servicio (Docker) + clientes + skill/MCP para todos los agentes
+./install-vivora.sh            # solo clientes + skill/MCP (servicio ya desplegado: añade --url https://tu-vivora)
+```
+
+Instala el CLI `vivora`, el cliente Python (`vivora_client`), el cliente TypeScript (`integrations/typescript`), la skill en `~/.claude`, `~/.agents`, `~/.codex`, `~/.cursor` y un servidor MCP (`vivora-mcp`) compatible con cualquier agente/modelo. Ver `integrations/`.

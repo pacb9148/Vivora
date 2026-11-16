@@ -1,0 +1,12 @@
+{
+  "name": "vivora-client",
+  "version": "0.1.0",
+  "description": "Zero-dependency TypeScript/JS client for the Vivora live-avatar API (Node 22+, browsers, Bun, Deno)",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "src"],
+  "scripts": { "build": "tsc" },
+  "devDependencies": { "typescript": "^5.4.0" },
+  "license": "MIT"
+}

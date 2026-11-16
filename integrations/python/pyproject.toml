@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vivora-client"
+version = "0.1.0"
+description = "Zero-dependency Python client + CLI for the Vivora live-avatar API"
+requires-python = ">=3.9"
+dependencies = []
+
+[project.optional-dependencies]
+chat = ["websockets>=12"]
+
+[project.scripts]
+vivora = "vivora_client.cli:main"
+vivora-mcp = "vivora_client.mcp_server:main"
+
+[tool.setuptools]
+packages = ["vivora_client"]
